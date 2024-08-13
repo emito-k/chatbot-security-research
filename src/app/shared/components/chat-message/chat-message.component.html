@@ -1,1 +1,6 @@
-<p>chat-message works!</p>
+
+<div class="container">
+  <img [src]="chatMessage.imgUrl" alt="Avatar" style="width:100%;">
+  <p>{{chatMessage.message}}</p>
+  <span class="time-right">{{chatMessage.timestamp}}</span>
+</div>

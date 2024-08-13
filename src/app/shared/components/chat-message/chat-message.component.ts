@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChatMessageInterface } from '../../models/chat-message.interface';
 
 @Component({
   selector: 'app-chat-message',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './chat-message.component.css'
 })
 export class ChatMessageComponent {
-
+  @Input({ required: true }) chatMessage!: ChatMessageInterface;
 }
