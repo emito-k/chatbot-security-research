@@ -12,5 +12,5 @@ import { ChatMessageInterface } from '../../models/chat-message.interface';
   styleUrl: './chat-messages.component.css'
 })
 export class ChatMessagesComponent {
-   @Input() chats: ChatMessageInterface[] = [];
+  @Input() chats: ChatMessageInterface[] = [];
 }
