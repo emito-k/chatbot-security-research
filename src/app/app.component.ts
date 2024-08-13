@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ChatServiceService } from './shared/services/chat-service.service';
+import { ChatbotService } from './shared/services/chat-service.service';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +12,17 @@ import { ChatServiceService } from './shared/services/chat-service.service';
 export class AppComponent {
   title = 'research-chatbot-prototype';
   response = '';
-  constructor(private chatService: ChatServiceService) {}
+  constructor(private chatService: ChatbotService) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.chatService.sendPrompt('how are you doing today').then((res) => {
-      console.log(res);
-      this.response = res.data.message;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // this.chatService.sendPrompt('how are you doing today').then((res) => {
+    //   console.log(res);
+    //   this.response = res.response;
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
   }
 }
