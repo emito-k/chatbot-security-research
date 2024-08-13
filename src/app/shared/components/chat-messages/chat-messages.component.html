@@ -2,5 +2,13 @@
   @for (chat of chats; track chat) {
     <app-chat-message [chatMessage]="chat"></app-chat-message>
   }
+  @empty {
+    No messages...
+  }
+
+  @if (loading) {
+    <mat-spinner></mat-spinner>
+  }
+
   <ng-content></ng-content>
 </div>
