@@ -39,26 +39,26 @@ export class AppComponent {
   }
 
   sendMessage(message: string) {
-    this.chats.push({
-      imgUrl: "https://www.w3schools.com/w3images/bandmember.jpg",
-      message: message,
-      timestamp: (new Date()).toISOString(),
-      sender: "me"
-    });
+    // this.chats.push({
+    //   imgUrl: "https://www.w3schools.com/w3images/bandmember.jpg",
+    //   content: message,
+    //   timestamp: (new Date()).toISOString(),
+    //   role: "me"
+    // });
 
-    this.loading = true;
-    this.chatService.sendPrompt(message).then((res: ChatPromptResponseInterface) => {
-      this.chats.push({
-        imgUrl: "https://i.pinimg.com/originals/0c/67/5a/0c675a8e1061478d2b7b21b330093444.gif",
-        message: res.response,
-        timestamp: (new Date()).toISOString(),
-        sender: "bot"
-      });
-      this.loading = false;
-    })
-    .catch(error => {
-      console.error(error)
-      this.loading = false;
-    });
+    // this.loading = true;
+    // this.chatService.sendPrompt(message).then((res: ChatPromptResponseInterface) => {
+    //   this.chats.push({
+    //     imgUrl: "https://i.pinimg.com/originals/0c/67/5a/0c675a8e1061478d2b7b21b330093444.gif",
+    //     content: res.response,
+    //     timestamp: (new Date()).toISOString(),
+    //     role: "bot"
+    //   });
+    //   this.loading = false;
+    // })
+    // .catch(error => {
+    //   console.error(error)
+    //   this.loading = false;
+    // });
   }
 }

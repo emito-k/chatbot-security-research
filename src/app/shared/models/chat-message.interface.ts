@@ -1,6 +1,6 @@
 export interface ChatMessageInterface {
   imgUrl?: string,
-  message: string,
+  content: string,
   timestamp: string,
-  sender: string
+  role: "assistant" | "user" | "system" | "tool"
 }
