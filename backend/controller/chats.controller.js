@@ -7,7 +7,11 @@ export async function createMessage(req, res) {
 
     console.log(`r=${role}, c=${content}`);
 
-    await Chat.create({ role, content });
+    await Chat.create({
+      role,
+      content,
+      imageUrl: "https://www.w3schools.com/w3images/bandmember.jpg",
+    });
 
     let chats = (await Chat.find({})) ?? [];
 
@@ -20,7 +24,12 @@ export async function createMessage(req, res) {
       .then((res) => res.data);
 
     console.log(bot);
-    await Chat.create({ role: bot.message.role, content: bot.message.content });
+    await Chat.create({
+      role: bot.message.role,
+      content: bot.message.content,
+      imageUrl:
+        "https://i.pinimg.com/originals/0c/67/5a/0c675a8e1061478d2b7b21b330093444.gif",
+    });
 
     chats = (await Chat.find({})) ?? [];
 

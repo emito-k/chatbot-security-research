@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 export const ChatSchema = new mongoose.Schema(
   {
+    imageUrl: String,
     role: String,
     content: String,
   },

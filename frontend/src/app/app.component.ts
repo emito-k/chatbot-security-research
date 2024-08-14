@@ -29,13 +29,13 @@ export class AppComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    // this.chatService.sendPrompt('how are you doing today').then((res) => {
-    //   console.log(res);
-    //   this.response = res.response;
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
+    this.chatService.getChats().then((chats) => {
+      this.chats.push(...chats);
+      console.log(this.chats);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   sendMessage(message: string) {
@@ -46,19 +46,16 @@ export class AppComponent {
     //   role: "me"
     // });
 
-    // this.loading = true;
-    // this.chatService.sendPrompt(message).then((res: ChatPromptResponseInterface) => {
-    //   this.chats.push({
-    //     imgUrl: "https://i.pinimg.com/originals/0c/67/5a/0c675a8e1061478d2b7b21b330093444.gif",
-    //     content: res.response,
-    //     timestamp: (new Date()).toISOString(),
-    //     role: "bot"
-    //   });
-    //   this.loading = false;
-    // })
-    // .catch(error => {
-    //   console.error(error)
-    //   this.loading = false;
-    // });
+    this.loading = true;
+
+    this.chatService.sendChat(message).then((chats) => {
+      this.chats.push(chats[chats.length - 2]);
+      this.chats.push(chats[chats.length - 1]);
+      this.loading = false;
+    })
+    .catch((error) => {
+      console.log(error);
+      this.loading = false;
+    });
   }
 }
