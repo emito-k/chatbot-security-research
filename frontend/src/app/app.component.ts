@@ -4,6 +4,8 @@ import { ChatbotService } from './shared/services/chatbot-service.service';
 import { ChatMessagesComponent } from './shared/components/chat-messages/chat-messages.component';
 import { ChatMessageInterface } from './shared/models/chat-message.interface';
 import { ChatPromptResponseInterface } from './shared/models/chat-prompt-response.interface';
+import { ChatService } from './shared/services/chat.service';
+import { LocalStorageService } from './shared/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -24,18 +26,22 @@ export class AppComponent {
   ];
   loading: boolean = false;
 
-  constructor(private chatService: ChatbotService) {}
+  constructor(private chatbotService: ChatbotService, private chatService: ChatService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.chatService.getChats().then((chats) => {
-      this.chats.push(...chats);
-      console.log(this.chats);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // this.chatbotService.getChats().then((chats) => {
+    //   this.chats.push(...chats);
+    //   console.log(this.chats);
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+
+    this.chats.push(...this.localStorageService.getChats());
+
+    this.chatService.receiveMessages().subscribe(chat => this.chats.push(chat))
   }
 
   sendMessage(message: string) {
@@ -46,16 +52,18 @@ export class AppComponent {
     //   role: "me"
     // });
 
-    this.loading = true;
+    // this.loading = true;
 
-    this.chatService.sendChat(message).then((chats) => {
-      this.chats.push(chats[chats.length - 2]);
-      this.chats.push(chats[chats.length - 1]);
-      this.loading = false;
-    })
-    .catch((error) => {
-      console.log(error);
-      this.loading = false;
-    });
+    // this.chatbotService.sendChat(message).then((chats) => {
+    //   this.chats.push(chats[chats.length - 2]);
+    //   this.chats.push(chats[chats.length - 1]);
+    //   this.loading = false;
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    //   this.loading = false;
+    // });
+
+   this.chats.push(this.chatService.sendMessage(message));
   }
 }

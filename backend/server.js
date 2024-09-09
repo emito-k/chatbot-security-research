@@ -38,6 +38,11 @@ mongoose
       socket.on("hello-world", (data) => {
         console.log(data);
       });
+
+      socket.on("send-message", (data) => {
+        console.log(data);
+        socket.broadcast.emit("receive-message", data);
+      });
     });
     // app.listen(PORT, () => {
     //   console.log(`Server running on http://localhost:${PORT}`);
