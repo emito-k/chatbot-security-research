@@ -64,6 +64,6 @@ export class AppComponent {
     //   this.loading = false;
     // });
 
-   this.chats.push(this.chatService.sendMessage(message));
+   this.chatService.sendMessage(message)
   }
 }

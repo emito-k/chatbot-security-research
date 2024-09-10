@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { ChatMessageInterface } from '../models/chat-message.interface';
 import { LocalStorageService } from './local-storage.service';
+import { ChatPayloadInterface } from '../models/chat-payload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +21,26 @@ export class ChatService {
       imageUrl: "https://i.pinimg.com/originals/90/de/25/90de257fdac14d35d66a81ab8e282cad.jpg"
     };
 
-    this.localStorageService.addChat(newMessage);
+    // this.localStorageService.addChat(newMessage);
 
-    this.socket.emit("send-message", {
-      settings: {},
-      chats: this.localStorageService.getChats(),
-    });
+    const chatPayload : ChatPayloadInterface = {
+      use_cloud_chats: false,
+      encrypted: false,
+      previous_chats: this.localStorageService.getChats() as ChatMessageInterface[],
+      new_chat: newMessage
+    };
+
+    this.socket.emit("send-message", chatPayload);
 
     return newMessage;
   }
 
   receiveMessages() {
     const observable = new Observable<ChatMessageInterface>((observer) => {
-      this.socket.on("receive-message", (message) => {
-        console.log(message);
-        this.localStorageService.addChat(message.chats[0]); // FIXME: Must be a cleaner way of doing this
-        observer.next(message.chats[0]);
+      this.socket.on("receive-message", (chatPayload : ChatPayloadInterface) => {
+        console.log(chatPayload);
+        this.localStorageService.addChat(chatPayload.new_chat); // FIXME: Must be a cleaner way of doing this
+        observer.next(chatPayload.new_chat);
       });
 
       return () => {console.log('closing socket...');this.socket.disconnect()};
