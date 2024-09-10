@@ -43,7 +43,7 @@ mongoose
         console.log(data);
         data.new_chat.id = Math.floor(Math.random() * 1000);
 
-        socket.emit("receive-message", data);
+        io.emit("receive-message", data);
       });
     });
     // app.listen(PORT, () => {

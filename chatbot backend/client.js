@@ -8,6 +8,7 @@ socket.emit("hello-world", {
   khoza: "world",
 });
 
+// FIXME: Please fix this, it is not receiving the message
 socket.on("receive-message", async (data) => {
   console.log('received message...');
   const bot = await axios
