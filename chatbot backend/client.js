@@ -2,15 +2,16 @@ import { io } from "socket.io-client";
 import axios from "axios";
 
 const socket = io("http://localhost:3000");
+const my_sender_id = "bot";
 
-socket.emit("hello-world", {
-  mito: "hello",
-  khoza: "world",
-});
-
-// FIXME: I KEEP TALKING TO MYSELF
 socket.on("receive-message", async (data) => {
   console.log('received message...');
+  console.log(data);
+
+  if (data.sender_id === my_sender_id) {
+    return;
+  }
+
   const bot = await axios
     .post("http://localhost:11434/api/chat", {
       model: "codegemma",
@@ -24,6 +25,7 @@ socket.on("receive-message", async (data) => {
   // Send reply
   console.log('sending reply...');
   socket.emit("send-message", {
+    sender_id: "bot",
     use_cloud_chats: false,
     encrypted: false,
     previous_chats: [],

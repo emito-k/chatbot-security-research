@@ -24,6 +24,7 @@ export class ChatService {
     // this.localStorageService.addChat(newMessage);
 
     const chatPayload : ChatPayloadInterface = {
+      sender_id: "user",
       use_cloud_chats: false,
       encrypted: false,
       previous_chats: this.localStorageService.getChats() as ChatMessageInterface[],
