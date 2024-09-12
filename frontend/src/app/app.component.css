@@ -7,3 +7,20 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+#navbar {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.text-box input {
+  float: left;
+  width: 80%;
+}
+
+.text-box button {
+  float: loeft;
+  width: 20%;
+}

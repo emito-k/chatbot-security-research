@@ -6,13 +6,17 @@ import { ChatMessageInterface } from './shared/models/chat-message.interface';
 import { ChatPromptResponseInterface } from './shared/models/chat-prompt-response.interface';
 import { ChatService } from './shared/services/chat.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    ChatMessagesComponent
+    ChatMessagesComponent,
+    NavigationBarComponent,
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
