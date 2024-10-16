@@ -6,8 +6,9 @@ const User = sequelize.define("User", {
   id: { type: DataTypes.BIGINT.UNSIGNED, autoIncrement: true, primaryKey: true },
   username: { type: DataTypes.STRING(255), allowNull: false },
   password: { type: DataTypes.STRING(255), allowNull: false },
-  public_key: { type: DataTypes.BIGINT, allowNull: false },
-  is_bot: { type: DataTypes.BOOLEAN, allowNull: false }
+  public_key: { type: DataTypes.STRING(255), allowNull: false },
+  is_bot: { type: DataTypes.BOOLEAN, allowNull: false },
+  auth_token: { type: DataTypes.STRING(255), allowNull: false }
 }, {
   timestamps: false,
 });
