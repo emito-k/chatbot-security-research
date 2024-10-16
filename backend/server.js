@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import conversationRoutes from "./routes/conversation.route.js";
-// import messageRoutes from "./routes/message.route.js";
+import messageRoutes from "./routes/message.route.js";
 import sequelize from "./models/index.js";
 dotenv.config();
 import { Server } from "socket.io";
@@ -19,7 +19,7 @@ const io = new Server(httpServer, {
 app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/conversations", conversationRoutes);
-// app.use("/messages", messageRoutes);
+app.use("/messages", messageRoutes);
 
 sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => {
