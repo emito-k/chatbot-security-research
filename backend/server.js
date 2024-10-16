@@ -8,6 +8,7 @@ import sequelize from "./models/index.js";
 import { createMessage } from "./controllers/message.controller.js";
 import { Server } from "socket.io";
 import { createServer } from "http";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ const io = new Server(httpServer, {
 });
 
 app.use(express.json());
+app.use(cors());
 app.use("/users", userRoutes);
 app.use("/conversations", conversationRoutes);
 app.use("/messages", messageRoutes);
