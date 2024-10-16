@@ -11,4 +11,14 @@ const Conversation = sequelize.define("Conversation", {
   timestamps: false,
 });
 
+Conversation.belongsTo(User, {
+    foreignKey: "user_a_id_fk",
+    onDelete: "CASCADE"
+});
+
+Conversation.belongsTo(User, {
+    "foreignKey": "user_b_id_fk",
+    onDelete: "CASCADE"
+})
+
 export default Conversation;

@@ -21,7 +21,7 @@ app.use("/users", userRoutes);
 app.use("/conversations", conversationRoutes);
 app.use("/messages", messageRoutes);
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
