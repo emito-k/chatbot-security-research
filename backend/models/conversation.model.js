@@ -12,11 +12,13 @@ const Conversation = sequelize.define("Conversation", {
 });
 
 Conversation.belongsTo(User, {
+    as: "UserA",
     foreignKey: "user_a_id_fk",
     onDelete: "CASCADE"
 });
 
 Conversation.belongsTo(User, {
+    as: "UserB",
     "foreignKey": "user_b_id_fk",
     onDelete: "CASCADE"
 })
