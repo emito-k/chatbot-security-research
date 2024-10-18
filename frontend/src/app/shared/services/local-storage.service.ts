@@ -16,7 +16,10 @@ export class LocalStorageService {
   }
 
   // TODO: Create user information class
-  clearData() {}
+  clearUserData() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("priKey");
+  }
 
   getUserInfo() {
     const stringUser : string = localStorage.getItem("user") ?? "";
