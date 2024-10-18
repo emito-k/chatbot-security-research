@@ -28,4 +28,10 @@ export class AdminService {
       return user;
     }));
   }
+
+
+
+  login(user: UserInterface) {
+
+  }
 }

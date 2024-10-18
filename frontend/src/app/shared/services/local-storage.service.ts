@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChatMessageInterface } from '../models/chat-message.interface';
+import { UserInterface } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,14 @@ export class LocalStorageService {
   clearData() {}
 
   getUserInfo() {
+    const stringUser : string = localStorage.getItem("user") ?? "";
+    return JSON.parse(stringUser);
   }
 
-  updateUserInfo() {}
+  updateUserInfo(user: UserInterface) : void {
+    const stringUser : string = JSON.stringify(user);
+    localStorage.setItem("user", stringUser);
+  }
 
   // Chats
   // TODO: Change this to use promises instead...
