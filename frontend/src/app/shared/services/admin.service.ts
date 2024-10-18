@@ -33,8 +33,14 @@ export class AdminService {
     }));
   }
 
-
-  saveUser(user: UserInterface) {
-
+  loginUser(userDto: UserDTOInterface, privateKey: string) : Observable<SignupResponse> {
+    return this.http.post<UserInterface>(`${this.apiUrl}/users/login`, userDto)
+    .pipe(map((user: UserInterface) => {
+      const res : SignupResponse = {
+        private_key: privateKey,
+        user: user
+      };
+      return res;
+    }));
   }
 }

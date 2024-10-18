@@ -10,11 +10,13 @@ export interface UserInterface {
 export interface UserDTOInterface {
   username: string,
   password: string,
-  is_bot: boolean,
-  public_key: string
+  is_bot?: boolean,
+  public_key?: string
 }
 
 export interface SignupResponse {
   private_key: string,
   user: UserInterface
 }
+
+// export interface UserLoginDTOInterface
