@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import axios from 'axios';
-import { UserDTOInterface, UserInterface } from '../models/user.interface';
+import { SignupResponse, UserDTOInterface, UserInterface } from '../models/user.interface';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
@@ -14,7 +14,7 @@ export class AdminService {
 
   apiUrl = environment.apiUrl;
 
-  createUser(userDto: UserDTOInterface) : Observable<UserInterface> {
+  createUser(userDto: UserDTOInterface) : Observable<SignupResponse> {
     const publicKey = `publicKey`;
     const privateKey = `privateKey`;
 
@@ -24,14 +24,17 @@ export class AdminService {
 
     return this.http.post<UserInterface>(`${this.apiUrl}/users`, userDto)
     .pipe(map((user: UserInterface) => {
-      user.private_key = privateKey;
-      return user;
+      // user.private_key = privateKey;
+      const res : SignupResponse = {
+        private_key: privateKey,
+        user: user
+      };
+      return res;
     }));
   }
 
 
-
-  login(user: UserInterface) {
+  saveUser(user: UserInterface) {
 
   }
 }

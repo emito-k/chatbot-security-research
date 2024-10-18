@@ -23,9 +23,13 @@ export class LocalStorageService {
     return JSON.parse(stringUser);
   }
 
-  updateUserInfo(user: UserInterface) : void {
+  saveUser(user: UserInterface) : void {
     const stringUser : string = JSON.stringify(user);
     localStorage.setItem("user", stringUser);
+  }
+
+  savePrivateKey(privateKey: string) : void {
+    localStorage.setItem("priKey", privateKey);
   }
 
   // Chats

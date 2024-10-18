@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AdminService } from '../shared/services/admin.service';
 import { UserInterface } from '../shared/models/user.interface';
+import { LocalStorageService } from '../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -16,6 +17,7 @@ import { UserInterface } from '../shared/models/user.interface';
 export class SignupPageComponent {
   snackBar = inject(MatSnackBar);
   adminService = inject(AdminService);
+  localStorageService = inject(LocalStorageService);
 
   usernameFormControl = new FormControl("");
   passwordFormControl = new FormControl("")
@@ -32,8 +34,14 @@ export class SignupPageComponent {
         public_key: "random",
         is_bot: false
       }).subscribe({
-        next: user => {
-          console.log(user);
+        next: data => {
+          console.log(data);
+
+          this.localStorageService.saveUser(data.user);
+          this.localStorageService.savePrivateKey(data.private_key);
+
+
+
           this.snackBar.open("User created");
         },
         error: error => {
