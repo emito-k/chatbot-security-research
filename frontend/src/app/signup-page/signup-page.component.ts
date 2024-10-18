@@ -3,7 +3,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AdminService } from '../shared/services/admin.service';
 import { UserInterface } from '../shared/models/user.interface';
-import { LocalStorageService } from '../shared/services/local-storage.service';
+import { LoginSuccessDialogComponent } from '../shared/components/login-success-dialog/login-success-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup-page',
@@ -17,7 +18,7 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
 export class SignupPageComponent {
   snackBar = inject(MatSnackBar);
   adminService = inject(AdminService);
-  localStorageService = inject(LocalStorageService);
+  dialog = inject(MatDialog);
 
   usernameFormControl = new FormControl("");
   passwordFormControl = new FormControl("")
@@ -37,10 +38,9 @@ export class SignupPageComponent {
         next: data => {
           console.log(data);
 
-          this.localStorageService.saveUser(data.user);
-          this.localStorageService.savePrivateKey(data.private_key);
-
-
+          this.dialog.open(LoginSuccessDialogComponent, {
+            data: data,
+          });
 
           this.snackBar.open("User created");
         },
