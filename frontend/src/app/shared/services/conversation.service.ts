@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ConversationDTOInterface, ConversationInterface } from '../interfaces/conversation.interface';
 import { ConversationMessageDTO, ConversationMessageInterface } from '../models/conversation-message.interface';
-
+import { io } from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +13,7 @@ export class ConversationService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
   currentConversation = new Subject<ConversationInterface | null>();
+  socket = io(environment.socketServerUrl);
 
   constructor() { }
 
@@ -38,5 +39,13 @@ export class ConversationService {
 
   getCurrentConversationMessages(conversation: ConversationInterface) : Observable<ConversationMessageInterface[]> {
     return this.http.get<ConversationMessageInterface[]>(`${this.apiUrl}/messages/conversation/${conversation.id}`);
+  }
+
+
+
+  getCurrentConversationMessagesStream(conversation: ConversationInterface) : Observable<ConversationMessageInterface> {
+    return new Observable((observer => {
+      // this.socket.on()
+    }));
   }
 }
