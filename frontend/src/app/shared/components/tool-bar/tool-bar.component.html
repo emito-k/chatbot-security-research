@@ -11,8 +11,8 @@
 
     @for (conversation of conversations; track conversation) {
       <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>{{conversation.id}}</span>
+        <mat-icon>message</mat-icon>
+        <span>{{conversation.id + ". " + conversation.UserA.username + " & " + conversation.UserB.username}}  </span>
       </button>
 
     }

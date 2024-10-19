@@ -2,8 +2,8 @@ import { UserInterface } from "../models/user.interface";
 
 export interface ConversationInterface {
   id: string,
-  userA: UserInterface,
-  userB: UserInterface
+  UserA: UserInterface,
+  UserB: UserInterface
 }
 
 export interface ConversationDTOInterface {
