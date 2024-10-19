@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ConversationDTOInterface, ConversationInterface } from '../interfaces/conversation.interface';
+import { ConversationMessageDTO, ConversationMessageInterface } from '../models/conversation-message.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,13 @@ export class ConversationService {
 
   setConversation(newConversation : ConversationInterface) : void {
     this.currentConversation.next(newConversation);
+  }
+
+  createConversationMessage(newMessage: ConversationMessageDTO) : Observable<ConversationMessageInterface> {
+    return this.http.post<ConversationMessageInterface>(`${this.apiUrl}/messages`, newMessage);
+  }
+
+  getCurrentConversationMessages(conversation: ConversationInterface) : Observable<ConversationMessageInterface[]> {
+    return this.http.get<ConversationMessageInterface[]>(`${this.apiUrl}/messages/conversation/${conversation.id}`);
   }
 }

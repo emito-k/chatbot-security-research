@@ -8,12 +8,14 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
 import { ConversationService } from '../shared/services/conversation.service';
 import { ConversationInterface } from '../shared/interfaces/conversation.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConversationMessagesComponent } from '../shared/components/conversation-messages/conversation-messages.component';
 
 @Component({
   selector: 'app-conversation-page',
   standalone: true,
   imports: [
-    ChatMessagesComponent
+    ChatMessagesComponent,
+    ConversationMessagesComponent
   ],
   templateUrl: './conversation-page.component.html',
   styleUrl: './conversation-page.component.css'
