@@ -7,6 +7,7 @@ import { ConversationMessageInterface } from '../../models/conversation-message.
 import { LocalStorageService } from '../../services/local-storage.service';
 import { UserInterface } from '../../models/user.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conversation-messages',
@@ -26,15 +27,27 @@ export class ConversationMessagesComponent implements OnInit {
   localStorageService = inject(LocalStorageService);
   currentUser: UserInterface | null = null;
   messageFormControl: FormControl = new FormControl();
+  currentMessagesSubscription: Observable<ConversationMessageInterface> | null = null;
 
   ngOnInit(): void {
     this.conversationService.currentConversation.subscribe({
       next: conversation => {
         if (conversation) {
+          this.conversationService.leaveConervsation(this.currentConversation);
           this.currentConversation = conversation;
+
           this.conversationService.getCurrentConversationMessages(conversation)
           .subscribe({
-            next: conversations => {this.conversationMessages = conversations; console.log(conversations)},
+            next: conversations => {
+              this.conversationMessages = conversations;
+              console.log(conversations);
+
+              this.conversationService.getCurrentConversationMessagesStream(conversation).subscribe({
+                next: message => this.conversationMessages.push(message),
+                error: error => this.snackBar.open(error.message, "Oof")
+              });
+
+            },
             error: error => this.snackBar.open(error.message, "Oof")
           });
         }
@@ -48,15 +61,12 @@ export class ConversationMessagesComponent implements OnInit {
 
   sendMessage() {
     if (this.currentConversation && this.currentUser && this.messageFormControl.value) {
-      this.conversationService.createConversationMessage({
+      this.conversationService.sendConversationMessage({
         conversation_id_fk: this.currentConversation.id,
         encryption_algorithm: "", // TODO: Add encryption algorithm
         is_encrypted: false,
         message_content: this.messageFormControl.value,
         user_id_fk: this.currentUser.id
-      }).subscribe({
-        next: conversation => console.log(conversation),
-        error: error => this.snackBar.open(error.message, "Oof")
       });
     }
     else {

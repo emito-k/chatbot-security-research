@@ -53,7 +53,7 @@ export class ConversationPageComponent {
 
     this.chats.push(...this.localStorageService.getChats());
 
-    this.chatService.receiveMessages().subscribe(chat => this.chats.push(chat))
+    this.chatService.receiveMessages().subscribe(chat => this.chats.push(chat));
   }
 
   sendMessage(message: string) {

@@ -37,15 +37,32 @@ export class ConversationService {
     return this.http.post<ConversationMessageInterface>(`${this.apiUrl}/messages`, newMessage);
   }
 
+  sendConversationMessage(newMessage: ConversationMessageDTO) : void {
+    this.socket.emit('send-message', newMessage);
+  }
+
   getCurrentConversationMessages(conversation: ConversationInterface) : Observable<ConversationMessageInterface[]> {
     return this.http.get<ConversationMessageInterface[]>(`${this.apiUrl}/messages/conversation/${conversation.id}`);
   }
 
+  leaveConervsation(conversation: ConversationInterface | null): void {
+    if (conversation) {
+      this.socket.emit('leave-conversation', conversation.id);
+    }
+  }
 
+  joinConversation(conversation: ConversationInterface): void {
+    this.socket.emit('join-conversation', conversation.id);
+  }
 
   getCurrentConversationMessagesStream(conversation: ConversationInterface) : Observable<ConversationMessageInterface> {
-    return new Observable((observer => {
-      // this.socket.on()
+    this.joinConversation(conversation);
+    return new Observable<ConversationMessageInterface>((observer => {
+      this.socket.on(`receive-message`, (newMessage) => {
+        observer.next(newMessage);
+      });
+
+      return () => this.socket.disconnect();
     }));
   }
 }
