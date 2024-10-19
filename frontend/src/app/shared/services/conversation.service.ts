@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { UserInterface } from '../models/user.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ConversationDTOInterface, ConversationInterface } from '../interfaces/conversation.interface';
@@ -11,6 +11,7 @@ import { ConversationDTOInterface, ConversationInterface } from '../interfaces/c
 export class ConversationService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
+  currentConversation = new Subject<ConversationInterface | null>();
 
   constructor() { }
 
@@ -24,5 +25,9 @@ export class ConversationService {
 
   getConversations() : Observable<ConversationInterface[]> {
     return this.http.get<ConversationInterface[]>(`${this.apiUrl}/conversations`);
+  }
+
+  setConversation(newConversation : ConversationInterface) : void {
+    this.currentConversation.next(newConversation);
   }
 }

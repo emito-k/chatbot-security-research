@@ -55,4 +55,8 @@ export class ToolBarComponent implements OnInit {
       data: currentUser
     });
   }
+
+  selectConversation(conversation: ConversationInterface) : void {
+    this.conversationService.setConversation(conversation);
+  }
 }

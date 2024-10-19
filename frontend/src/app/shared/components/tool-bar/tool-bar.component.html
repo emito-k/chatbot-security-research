@@ -10,7 +10,7 @@
     <hr>
 
     @for (conversation of conversations; track conversation) {
-      <button mat-menu-item>
+      <button mat-menu-item (click)="selectConversation(conversation)">
         <mat-icon>message</mat-icon>
         <span>{{conversation.id + ". " + conversation.UserA.username + " & " + conversation.UserB.username}}  </span>
       </button>

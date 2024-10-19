@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ChatbotService } from '../shared/services/chatbot-service.service';
 import { ChatMessagesComponent } from '../shared/components/chat-messages/chat-messages.component';
 import { ChatMessageInterface } from '../shared/models/chat-message.interface';
 import { ChatPromptResponseInterface } from '../shared/models/chat-prompt-response.interface';
 import { ChatService } from '../shared/services/chat.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
+import { ConversationService } from '../shared/services/conversation.service';
+import { ConversationInterface } from '../shared/interfaces/conversation.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-conversation-page',
@@ -16,6 +19,10 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
   styleUrl: './conversation-page.component.css'
 })
 export class ConversationPageComponent {
+  conversationService = inject(ConversationService);
+  conversation: ConversationInterface | null = null;
+  snackBar = inject(MatSnackBar);
+
   chats: ChatMessageInterface[] = [
     // {imgUrl: "https://www.w3schools.com/w3images/bandmember.jpg", message: "hello", timestamp: "11:00", sender: "me"},
     // {imgUrl: "https://www.w3schools.com/w3images/bandmember.jpg", message: "hello", timestamp: "11:00", sender: "me"},
@@ -36,6 +43,11 @@ export class ConversationPageComponent {
     // .catch((error) => {
     //   console.error(error);
     // });
+
+    this.conversationService.currentConversation.subscribe({
+      next: conversation => this.conversation = conversation,
+      error: error => this.snackBar.open(error.message, "Oof")
+    });
 
     this.chats.push(...this.localStorageService.getChats());
 
