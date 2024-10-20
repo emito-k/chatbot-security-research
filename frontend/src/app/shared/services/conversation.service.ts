@@ -55,8 +55,8 @@ export class ConversationService {
     this.socket.emit('join-conversation', conversation.id);
   }
 
-  getCurrentConversationMessagesStream(conversation: ConversationInterface) : Observable<ConversationMessageInterface> {
-    this.joinConversation(conversation);
+  getCurrentConversationMessagesStream() : Observable<ConversationMessageInterface> {
+    // this.joinConversation(conversation);
     return new Observable<ConversationMessageInterface>((observer => {
       this.socket.on(`receive-message`, (newMessage) => {
         observer.next(newMessage);

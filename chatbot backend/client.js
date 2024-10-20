@@ -96,6 +96,7 @@ const listenToMessages = () => {
 
     if (message.user_id_fk !== botUser.id) {
       // Bot logic to respond to the message
+      console.log("Generating new message");
       const botResponse = await getBotResponse(message);
       console.log(botResponse);
       sendMessage(botResponse);
@@ -131,7 +132,7 @@ const getBotResponse = async (message) => {
       model: "codegemma", // Example model
       messages: [{
         role: "user",
-        conent: message.message_content
+        content: message.message_content
       }],
       stream: false,
     });

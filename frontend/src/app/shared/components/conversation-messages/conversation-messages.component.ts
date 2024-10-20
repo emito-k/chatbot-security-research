@@ -28,8 +28,14 @@ export class ConversationMessagesComponent implements OnInit {
   currentUser: UserInterface | null = null;
   messageFormControl: FormControl = new FormControl();
   currentMessagesSubscription: Observable<ConversationMessageInterface> | null = null;
+  conversationFlag: boolean = false;
 
   ngOnInit(): void {
+    this.conversationService.getCurrentConversationMessagesStream().subscribe({
+      next: message => this.conversationMessages.push(message),
+      error: error => this.snackBar.open(error.message, "Oof")
+    });
+
     this.conversationService.currentConversation.subscribe({
       next: conversation => {
         if (conversation) {
@@ -42,10 +48,12 @@ export class ConversationMessagesComponent implements OnInit {
               this.conversationMessages = conversations;
               console.log(conversations);
 
-              this.conversationService.getCurrentConversationMessagesStream(conversation).subscribe({
-                next: message => this.conversationMessages.push(message),
-                error: error => this.snackBar.open(error.message, "Oof")
-              });
+              this.conversationService.joinConversation(conversation);
+
+              // if (!this.conversationFlag) {
+              //   this.conversationFlag = true;
+
+              // }
 
             },
             error: error => this.snackBar.open(error.message, "Oof")
