@@ -12,6 +12,7 @@ import { UserInterface } from '../../models/user.interface';
 import { ConversationService } from '../../services/conversation.service';
 import { ConversationInterface } from '../../interfaces/conversation.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChatSettingsDialogComponent } from '../chat-settings-dialog/chat-settings-dialog.component';
 
 @Component({
   selector: 'app-tool-bar',
@@ -36,6 +37,8 @@ export class ToolBarComponent implements OnInit {
 
   conversations : ConversationInterface[] = [];
 
+  currentConversation : ConversationInterface | null = null;
+
   ngOnInit(): void {
     this.conversationService.getConversations().subscribe({
       next: conversations => this.conversations = conversations,
@@ -58,5 +61,12 @@ export class ToolBarComponent implements OnInit {
 
   selectConversation(conversation: ConversationInterface) : void {
     this.conversationService.setConversation(conversation);
+    this.currentConversation = conversation;
+  }
+
+  openConversationSettingsDialog(conversation: ConversationInterface) {
+    this.dialog.open(ChatSettingsDialogComponent, {
+      data: conversation
+    })
   }
 }
