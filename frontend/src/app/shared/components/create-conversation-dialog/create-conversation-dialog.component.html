@@ -1,0 +1,17 @@
+<h1>Create Conversation</h1>
+
+<p>Please select user you'd like start a conversation with</p>
+
+<h2>Users</h2>
+<mat-form-field>
+  <mat-select [formControl]="userSelectFormControl">
+    @for (user of users; track user) {
+      <mat-option [value]="user">{{ user.username + (user.is_bot? " (bot)" : "")}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button mat-dialog-close (click)="createConversation()">Create</button>
+</mat-dialog-actions>

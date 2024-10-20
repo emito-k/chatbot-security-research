@@ -1,0 +1,24 @@
+<div class="signup-container">
+  <form class="signup-form" (submit)="onSubmit($event);">
+    <h2>Login</h2>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" [formControl]="usernameFormControl" id="username" name="username" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" [formControl]="passwordFormControl" id="password" name="password" required>
+    </div>
+
+
+    <div class="form-group">
+      <label for="privatekey">Private key</label>
+      <input type="password" [formControl]="privateKeyFormControl" id="privatekey" name="privatekey" required>
+    </div>
+
+    <button type="submit">Login</button><br><br>
+    <button routerLink="/signup">Signup</button>
+  </form>
+</div>

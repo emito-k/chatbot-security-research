@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openCreateConversationDialog()">
+      <mat-icon>add</mat-icon>
+      <span>Create conversation</span>
+    </button>
+    <hr>
+
+    @for (conversation of conversations; track conversation) {
+      <button mat-menu-item (click)="selectConversation(conversation)">
+        <mat-icon>message</mat-icon>
+        <span>{{conversation.id + ". " + conversation.UserA.username + " & " + conversation.UserB.username}}  </span>
+      </button>
+
+    }
+
+  </mat-menu>
+
+  <span>Chatbot Research</span>
+  <span class="example-spacer"></span>
+  <button (click)="onLogout()" mat-flat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    Log out
+  </button>
+</mat-toolbar>

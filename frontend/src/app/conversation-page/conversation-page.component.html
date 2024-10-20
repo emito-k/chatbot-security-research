@@ -1,0 +1,10 @@
+@if (conversation) {
+  {{ conversation.id }} selected
+}
+<!-- <app-chat-messages [chats]="chats" [loading]="loading">
+  <label for="fname">Send message</label>
+  <input type="text" #input placeholder="Your name...">
+  <button (click)="sendMessage(input.value); input.value = ''" [disabled]="loading">Send</button>
+</app-chat-messages> -->
+
+<app-conversation-messages></app-conversation-messages>

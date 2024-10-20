@@ -1,0 +1,16 @@
+<h1>You have been successfully logged in</h1>
+<p>Please see your public and private keys, keep the private key... private</p>
+
+<h2>Public key</h2>
+<div class="box">
+  {{ data.user.public_key }}
+</div>
+
+<h2>Private key</h2>
+<div class="box">
+  {{ data.private_key }}
+</div>
+
+<mat-dialog-actions>
+  <button routerLink="" mat-dialog-close>Ok</button>
+</mat-dialog-actions>

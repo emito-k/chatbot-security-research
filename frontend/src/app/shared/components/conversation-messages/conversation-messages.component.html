@@ -1,0 +1,23 @@
+<button mat-flat-button>Settings</button>
+<div class="chat-container">
+  <div class="message-area">
+      @for (message of conversationMessages; track message) {
+        <div class="message-block {{ message.User.id === currentUser?.id ? 'right': ''}}">
+          <div class="message-header">
+              <div class="username">{{ message.User.username }}</div>
+              <button class="edit-btn">Edit</button>
+          </div>
+          <div class="message">{{ message.message_content }}</div>
+      </div>
+      }
+      @empty {
+        No new messages
+      }
+  </div>
+
+  <!-- Message Input Box -->
+  <div class="message-input-container">
+      <input type="text" [formControl]="messageFormControl" class="message-input" placeholder="Type your message here...">
+      <button mat-flat-button (click)="sendMessage()">Send</button>
+  </div>
+</div>

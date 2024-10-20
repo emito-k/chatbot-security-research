@@ -8,19 +8,8 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-#navbar {
+.tool-bar {
   position: sticky;
   top: 0;
   overflow: hidden;
-  background-color: #333;
-}
-
-.text-box input {
-  float: left;
-  width: 80%;
-}
-
-.text-box button {
-  float: loeft;
-  width: 20%;
 }
