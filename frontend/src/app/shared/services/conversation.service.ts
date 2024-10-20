@@ -41,6 +41,10 @@ export class ConversationService {
     this.socket.emit('send-message', newMessage);
   }
 
+  deleteConversation(message: ConversationInterface) : void {
+    this.socket.emit('delete-message', message);
+  }
+
   getCurrentConversationMessages(conversation: ConversationInterface) : Observable<ConversationMessageInterface[]> {
     return this.http.get<ConversationMessageInterface[]>(`${this.apiUrl}/messages/conversation/${conversation.id}`);
   }

@@ -5,7 +5,7 @@
         <div class="message-block {{ message.User.id === currentUser?.id ? 'right': ''}}">
           <div class="message-header">
               <div class="username">{{ message.User.username }}</div>
-              <button class="edit-btn">Edit</button>
+              <button class="edit-btn" (click)="openEditMessageDialog(message)">Edit</button>
           </div>
           <div class="message">{{ message.message_content }}</div>
       </div>

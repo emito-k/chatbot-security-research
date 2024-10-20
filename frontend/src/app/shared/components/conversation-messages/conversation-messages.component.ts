@@ -8,6 +8,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { UserInterface } from '../../models/user.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTextDialogComponent } from '../edit-text-dialog/edit-text-dialog.component';
 
 @Component({
   selector: 'app-conversation-messages',
@@ -29,6 +31,7 @@ export class ConversationMessagesComponent implements OnInit {
   messageFormControl: FormControl = new FormControl();
   currentMessagesSubscription: Observable<ConversationMessageInterface> | null = null;
   conversationFlag: boolean = false;
+  dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.conversationService.getCurrentConversationMessagesStream().subscribe({
@@ -82,7 +85,11 @@ export class ConversationMessagesComponent implements OnInit {
       console.log(this.currentUser);
       console.log(this.messageFormControl.value);
     }
-
   }
 
+  openEditMessageDialog(message: ConversationMessageInterface) {
+    this.dialog.open(EditTextDialogComponent, {
+      data: message
+    });
+  }
 }
