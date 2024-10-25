@@ -111,6 +111,13 @@ sequelize.sync({ force: false }).then(async () => {
       }
     });
 
+    // Request messages from user
+    socket.on("request-messages", (conversationId) => {
+      io.to(`conversation-${conversationId}`).emit({
+        request: "Please send me messages"
+      });
+    });
+
     // Join a conversation room
     socket.on("join-conversation", (conversationId) => {
       socket.join(`conversation-${conversationId}`);
